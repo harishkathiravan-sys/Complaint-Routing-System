@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: complaint-routing-api
+    env: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_TYPE
+        value: postgresql
+      - key: ALLOWED_ORIGINS
+        scope: run
+        sync: false
+      - key: SECRET_KEY
+        scope: run
+        sync: false
+      - key: DATABASE_URL
+        scope: run
+        sync: false
+
+databases:
+  - name: complaint-routing-db
+    databaseName: complaint_routing_db
+    user: postgres
+    region: singapore
+    plan: free
